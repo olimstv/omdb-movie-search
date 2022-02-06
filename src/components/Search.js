@@ -1,6 +1,15 @@
 import { FaSearch } from 'react-icons/fa';
-
-const Search = ({ searchTerm, handleSearchTermChange }) => {
+import YearsFilter from './YearsFilter';
+const Search = ({
+  searchTerm,
+  handleSearchTermChange,
+  fromYear,
+  MIN_YEAR,
+  MAX_YEAR,
+  handleFromYearChange,
+  toYear,
+  handleToYearChange
+}) => {
   return (
     <div id='search'>
       <div id='search-box'>
@@ -13,7 +22,16 @@ const Search = ({ searchTerm, handleSearchTermChange }) => {
           onChange={handleSearchTermChange}
         />
       </div>
-      <div id='filter'></div>
+      <div id='filter'>
+        <YearsFilter
+          MIN_YEAR={MIN_YEAR}
+          MAX_YEAR={MAX_YEAR}
+          fromYear={fromYear}
+          toYear={toYear}
+          handleFromYearChange={handleFromYearChange}
+          handleToYearChange={handleToYearChange}
+        />
+      </div>
     </div>
   );
 };
