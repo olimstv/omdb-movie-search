@@ -1,5 +1,7 @@
 import { FaSearch } from 'react-icons/fa';
 import YearsFilter from './YearsFilter';
+import TypeFilter from './TypeFilter';
+
 const Search = ({
   searchTerm,
   handleSearchTermChange,
@@ -8,7 +10,10 @@ const Search = ({
   MAX_YEAR,
   handleFromYearChange,
   toYear,
-  handleToYearChange
+  handleToYearChange,
+  MOVIE_TYPE_TO_FILTER_VALUE,
+  movieTypeIndex,
+  handleMovieTypeChange
 }) => {
   return (
     <div id='search'>
@@ -30,6 +35,11 @@ const Search = ({
           toYear={toYear}
           handleFromYearChange={handleFromYearChange}
           handleToYearChange={handleToYearChange}
+        />
+        <TypeFilter
+          MOVIE_TYPE_TO_FILTER_VALUE={MOVIE_TYPE_TO_FILTER_VALUE}
+          movieTypeIndex={movieTypeIndex}
+          handleMovieTypeChange={handleMovieTypeChange}
         />
       </div>
     </div>

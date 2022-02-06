@@ -32,7 +32,7 @@ body {
 }
 #search input {
   /* width: 100%; */
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   -ms-appearance: none;
   -moz-appearance: none;
   font-size: 1.25rem;
@@ -56,4 +56,10 @@ body {
   margin-right: 10px;
 }
 
-/* Year Filter */
+/* Filter */
+#filter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
