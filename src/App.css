@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+:root {
+  --primary-color: #666;
+  --secondary-color: #ffa200;
+  --light-gray: #c4c4c4;
+}
+/* css reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* General Styling */
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Search Component */
+#search {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 20px;
+  background: var(--primary-color);
+  height: 90px;
+  width: 100%;
+  color: #fff;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#search-box {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
-
-.App-link {
-  color: #61dafb;
+#search input {
+  /* width: 100%; */
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  font-size: 1.25rem;
+  border: none;
+  background: inherit;
+  outline: none;
+  padding: 10px;
+  caret-color: #fff;
+  color: #fff;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#search input::placeholder {
+  color: var(--light-gray);
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+#search input:focus::placeholder {
+  color: transparent;
+}
+#search .search-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
 }
