@@ -2,6 +2,8 @@ import { FaSearch } from 'react-icons/fa';
 import YearsFilter from './YearsFilter';
 import TypeFilter from './TypeFilter';
 
+const focusSearchInput = () => {};
+
 const Search = ({
   searchTerm,
   handleSearchTermChange,
@@ -13,7 +15,9 @@ const Search = ({
   handleToYearChange,
   MOVIE_TYPE_TO_FILTER_VALUE,
   movieTypeIndex,
-  handleMovieTypeChange
+  movieType,
+  handleMovieTypeChange,
+  searchKeyPress
 }) => {
   return (
     <div id='search'>
@@ -25,6 +29,7 @@ const Search = ({
           placeholder='Search...'
           value={searchTerm}
           onChange={handleSearchTermChange}
+          onKeyDown={e => searchKeyPress(e)}
         />
       </div>
       <div id='filter'>
@@ -40,6 +45,7 @@ const Search = ({
           MOVIE_TYPE_TO_FILTER_VALUE={MOVIE_TYPE_TO_FILTER_VALUE}
           movieTypeIndex={movieTypeIndex}
           handleMovieTypeChange={handleMovieTypeChange}
+          movieType={movieType}
         />
       </div>
     </div>

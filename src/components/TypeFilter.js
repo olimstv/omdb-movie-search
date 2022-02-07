@@ -3,6 +3,7 @@ import React from 'react';
 const TypeFilter = ({
   MOVIE_TYPE_TO_FILTER_VALUE,
   movieTypeIndex,
+  movieType,
   handleMovieTypeChange
 }) => {
   return (
