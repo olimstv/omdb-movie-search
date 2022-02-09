@@ -1,7 +1,8 @@
 import './App.css';
-import './App.css';
 import { useState, useEffect } from 'react';
 import Search from './components/Search';
+import { queryMovies } from './helpers/useMoviesQuery';
+import _ from 'lodash';
 
 // Constants
 const CURRENT_YEAR = new Date().getFullYear();
@@ -27,8 +28,14 @@ function App() {
   const [toYear, setToYear] = useState(CURRENT_YEAR);
   const [isPending, setIsPending] = useState(false);
   const [message, setMessage] = useState();
-  const [firstDataLoad, setFirstDataLoad] = useState();
+  // const [firstDataLoad, setFirstDataLoad] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
+
+  // ---
+  const [movieQueryPromise, setMovieQueryPromise] = useState();
+  const [movieQueryResult, setMovieQueryResult] = useState();
+  // ---
+
   // Event Handlers
   const handleSearchTermChange = e => {
     const newSearchTerm = e.target.value;
@@ -46,32 +53,75 @@ function App() {
     setMovieTypeIndex(index);
   };
 
-  const handleSearchKeyPress = e => {
-    let apiUrl;
+  const handleSearchEnterKeyPress = e => {
     let usableSearchTerm = searchTerm.trim();
-    // on pressing enter key in the search box
-    if (e.code === 'Enter') {
-      // check the length of searchTerm
-      if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
-        setMessage(
-          `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
-        );
-      }
-      // make a first fetch to get the totalResults number (if success)
-      if (movieType.filter === '') {
-        apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&apikey=81b34f15`;
-      } else {
-        apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&type=${movieType.filter}&apikey=81b34f15`;
-      }
-      fetch(apiUrl)
-        .then(res => {
-          return res.json();
-        })
-        .then(data => {
-          setFirstDataLoad(data);
-        });
+
+    // Check if the Enter was pressed
+    if (!enterKeyCheck(e)) {
+      return;
     }
-    console.log('firstDataLoad:', firstDataLoad);
+    // check the length of searchTerm
+    if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
+      setMovieQueryResult({});
+      setMessage(
+        `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
+      );
+      return;
+    }
+    queryMovies(searchTerm, fromYear, toYear, movieType, usableSearchTerm).then(
+      data => {
+        setMovieQueryResult(data);
+      }
+    );
+    // console.log(newMovieQuery);
+    // newMovieQuery.then(queryData => {
+    //   setMovieQueryResult(queryData);
+    // });
+    // let usableSearchTerm = searchTerm.trim();
+    // let apiUrl = apiUrlBuilder();
+    // // Check if the Enter was pressed
+    // if (!enterKeyCheck(e)) {
+    //   return;
+    // }
+    // // check the length of searchTerm
+    // if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
+    //   setMovieQueryResult({});
+    //   setMessage(
+    //     `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
+    //   );
+    //   return;
+    // }
+    // // 1. Make a first fetch to get the totalResults number (if success)
+    // if (movieType.filter === '') {
+    //   apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&apikey=81b34f15`;
+    // } else {
+    //   apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&type=${movieType.filter}&apikey=81b34f15`;
+    // }
+
+    // fetch(apiUrl)
+    //   .then(res => {
+    //     return res.json();
+    //   })
+    //   .then(data => {
+    //     setMovieQueryResult(data);
+    //   });
+    // 2. Get all movie objects
+    // if (movieQueryResult.Error) {
+    //   console.log('movieQueryResult', movieQueryResult);
+    //   // error
+    //   setMessage(movieQueryResult.Error);
+    //   console.log('message', message);
+    //   console.log('movieQueryResult.Error', movieQueryResult.Error);
+    //   // filter results
+    //   // let filteredMovies = movieQueryResult.Search.filter(movie => {
+
+    //   // });
+
+    //   console.log(movieQueryResult);
+  };
+
+  const enterKeyCheck = key => {
+    return key.code === 'Enter';
   };
 
   return (
@@ -89,7 +139,7 @@ function App() {
         movieTypeIndex={movieTypeIndex}
         movieType={movieType}
         handleMovieTypeChange={handleMovieTypeChange}
-        searchKeyPress={handleSearchKeyPress}
+        searchKeyPress={handleSearchEnterKeyPress}
       />
       <p>{message}</p>
     </div>
