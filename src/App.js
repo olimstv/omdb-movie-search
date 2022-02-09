@@ -73,51 +73,6 @@ function App() {
         setMovieQueryResult(data);
       }
     );
-    // console.log(newMovieQuery);
-    // newMovieQuery.then(queryData => {
-    //   setMovieQueryResult(queryData);
-    // });
-    // let usableSearchTerm = searchTerm.trim();
-    // let apiUrl = apiUrlBuilder();
-    // // Check if the Enter was pressed
-    // if (!enterKeyCheck(e)) {
-    //   return;
-    // }
-    // // check the length of searchTerm
-    // if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
-    //   setMovieQueryResult({});
-    //   setMessage(
-    //     `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
-    //   );
-    //   return;
-    // }
-    // // 1. Make a first fetch to get the totalResults number (if success)
-    // if (movieType.filter === '') {
-    //   apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&apikey=81b34f15`;
-    // } else {
-    //   apiUrl = `https://www.omdbapi.com/?s=${searchTerm}&type=${movieType.filter}&apikey=81b34f15`;
-    // }
-
-    // fetch(apiUrl)
-    //   .then(res => {
-    //     return res.json();
-    //   })
-    //   .then(data => {
-    //     setMovieQueryResult(data);
-    //   });
-    // 2. Get all movie objects
-    // if (movieQueryResult.Error) {
-    //   console.log('movieQueryResult', movieQueryResult);
-    //   // error
-    //   setMessage(movieQueryResult.Error);
-    //   console.log('message', message);
-    //   console.log('movieQueryResult.Error', movieQueryResult.Error);
-    //   // filter results
-    //   // let filteredMovies = movieQueryResult.Search.filter(movie => {
-
-    //   // });
-
-    //   console.log(movieQueryResult);
   };
 
   const enterKeyCheck = key => {

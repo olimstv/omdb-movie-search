@@ -4,7 +4,6 @@ export function queryMovies(
   toYear,
   movieType,
   usableSearchTerm
-  // apiUrlBuilder
 ) {
   return new Promise((resolve, reject) => {
     let numPages;
@@ -17,23 +16,29 @@ export function queryMovies(
         let totalResults;
         let moviesData = [];
         // error message
-        if (!data.Response) {
+        console.log(`response: ${data.Response}`);
+        if (data.Response === 'False') {
           moviesData.push(data);
         } else {
           // returning only 1 page (10 movies per page)
           totalResults = data.totalResults;
+          console.log('totalResults:', totalResults);
           if (totalResults <= 10) {
             moviesData.push(data.Search);
           } else {
             moviesData = data.Search;
+            currPage++;
             numPages = Math.ceil(totalResults / 10);
-            for (let i = 2; i <= numPages; i++) {
-              fetchMovies(searchTerm, movieType, i).then(dataLoad => {
+            for (currPage; currPage <= numPages; currPage++) {
+              fetchMovies(searchTerm, movieType, currPage).then(dataLoad => {
                 // console.log('moviesData:', moviesData);
                 // console.log('dataLoad:', dataLoad.Search);
 
                 dataLoad.Search.map(item => {
-                  moviesData.push(item);
+                  const passFilter = yearsFilter(item, fromYear, toYear);
+                  if (passFilter) {
+                    moviesData.push(item);
+                  }
                 });
               });
             }
@@ -59,26 +64,19 @@ const fetchMovies = async (query, type, pageNum) => {
   const data = await res.json();
   return data;
 };
+const yearsFilter = (movieObj, yearMin, yearMax) => {
+  let movieObjYearMin;
+  let movieObjYearMax;
+  let yearStrLength = movieObj.Year.length;
+  // console.log('yearStrLength:', yearStrLength);
+  if (yearStrLength === 4 || yearStrLength === 5) {
+    movieObjYearMin = parseInt(movieObj.Year.slice(0, 4));
+    return movieObjYearMin >= yearMin;
+  }
+  if (yearStrLength === 9) {
+    movieObjYearMin = parseInt(movieObj.Year.slice(0, 4));
+    movieObjYearMax = parseInt(movieObj.Year.slice(5));
 
-// const composeMoviesObj = async queryRes => {
-// let totalResults;
-// let data = [];
-// // error message
-// if (!queryRes.Response) {
-//   data.push(queryRes);
-// } else {
-//   // returning only 1 page (10 movies per page)
-//   totalResults = queryRes.totalResults;
-//   if (totalResults <= 10) {
-//     data.push(queryRes.Search);
-//   } else {
-//     data = queryRes.Search;
-//     numPages = Math.ceil(totalResults / 10);
-//     for (let i = 2; i <= numPages; i++) {
-//       let dataLoad = await fetchMovies(searchTerm, movieType, i);
-//       await data.push(dataLoad);
-//     }
-//   }
-// }
-// return data;
-// };
+    return movieObjYearMin >= yearMin && movieObjYearMax <= yearMax;
+  }
+};
