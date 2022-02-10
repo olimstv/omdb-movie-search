@@ -1,39 +1,26 @@
 import React from 'react';
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
 
 const YearsFilter = ({
-  fromYear,
-  MIN_YEAR,
-  MAX_YEAR,
-  handleFromYearChange,
-  toYear,
-  handleToYearChange
+                         MIN_YEAR, MAX_YEAR,
+                         handleYearSliderValueChange,
+                         yearSliderValue
 }) => {
   return (
     <div>
-      <div>
-        <label htmlFor='fromYear'> {fromYear}</label>
-        <input
-          type='range'
-          min={MIN_YEAR}
-          max={MAX_YEAR}
-          step={1}
-          value={fromYear}
-          id={fromYear}
-          onChange={handleFromYearChange}
-        />
-      </div>
-      <div>
-        <input
-          type='range'
-          min={MIN_YEAR}
-          max={MAX_YEAR}
-          step={1}
-          value={toYear}
-          id={toYear}
-          onChange={handleToYearChange}
-        />
-        <label htmlFor='toYear'> {toYear}</label>
-      </div>
+        {/*<Box sx={{ width: 150 }}>*/}
+        {/*    <Slider*/}
+        {/*        getAriaLabel={() => 'Years'}*/}
+        {/*        value={yearSliderValue}*/}
+        {/*        onChange={(event, newValue) =>*/}
+        {/*            handleYearSliderValueChange(newValue)*/}
+        {/*        }*/}
+        {/*        valueLabelDisplay='auto'*/}
+        {/*        min={MIN_YEAR}*/}
+        {/*        max={MAX_YEAR}*/}
+        {/*    />*/}
+        {/*</Box>*/}
     </div>
   );
 };

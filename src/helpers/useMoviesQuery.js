@@ -1,57 +1,64 @@
+const MAX_PAGES = 3;
+export const MAX_MOVIES_TO_SHOW = 5;
+
 export function queryMovies(
-  searchTerm,
+  // searchTerm,
   fromYear,
   toYear,
   movieType,
   usableSearchTerm
 ) {
-  return new Promise((resolve, reject) => {
+  let cancelFetch = false;
+
+  const promise = new Promise((resolve, reject) => {
     let numPages;
-    let usableSearchTerm = searchTerm.trim();
+    // let usableSearchTerm = searchTerm.trim();
     let movies = [];
-    let currPage = 1;
-    // 1. Make a first fetch to get the totalResults number (if success)
-    fetchMovies(searchTerm, movieType, currPage)
-      .then(data => {
-        let totalResults;
-        let moviesData = [];
-        // error message
-        console.log(`response: ${data.Response}`);
+    // let currPage = 1;
+
+    function fetchNextPage(currPage) {
+      if (cancelFetch) {
+        resolve(movies);
+        return;
+      }
+      const isFinished =
+        (numPages !== undefined && currPage > numPages) ||
+        movies.length > MAX_MOVIES_TO_SHOW;
+
+      if (isFinished) {
+        resolve(movies);
+        return;
+      }
+
+      fetchMovies(usableSearchTerm, movieType, currPage).then(data => {
         if (data.Response === 'False') {
-          moviesData.push(data);
-        } else {
-          // returning only 1 page (10 movies per page)
-          totalResults = data.totalResults;
-          console.log('totalResults:', totalResults);
-          if (totalResults <= 10) {
-            moviesData.push(data.Search);
-          } else {
-            moviesData = data.Search;
-            currPage++;
-            numPages = Math.ceil(totalResults / 10);
-            for (currPage; currPage <= numPages; currPage++) {
-              fetchMovies(searchTerm, movieType, currPage).then(dataLoad => {
-                // console.log('moviesData:', moviesData);
-                // console.log('dataLoad:', dataLoad.Search);
-
-                dataLoad.Search.map(item => {
-                  const passFilter = yearsFilter(item, fromYear, toYear);
-                  if (passFilter) {
-                    moviesData.push(item);
-                  }
-                });
-              });
-            }
-          }
+          reject(data.Error);
+          return;
         }
-        return moviesData;
-      })
-      .then(dataPromis => {
-        console.log('dataPromis:', dataPromis);
-
-        resolve(dataPromis);
+        if (numPages === undefined) {
+          numPages = Math.ceil(data.totalResults / 10);
+        }
+        data.Search.map(item => {
+          const passFilter = yearsFilter(item, fromYear, toYear);
+          if (passFilter) {
+            movies.push(item);
+          }
+        });
+        // currPage++;
+        fetchNextPage(currPage + 1);
       });
+    }
+
+    fetchNextPage(1);
   });
+
+  const cancelPromise = () => {
+    cancelFetch = true;
+  };
+
+  const queryMeta = { promise, cancelPromise };
+
+  return queryMeta;
 }
 const apiUrlBuilder = (query, type, page) => {
   let url;
@@ -64,19 +71,31 @@ const fetchMovies = async (query, type, pageNum) => {
   const data = await res.json();
   return data;
 };
-const yearsFilter = (movieObj, yearMin, yearMax) => {
+const yearsFilter = (movieObj, filterMinYear, filterMaxYear) => {
   let movieObjYearMin;
   let movieObjYearMax;
   let yearStrLength = movieObj.Year.length;
   // console.log('yearStrLength:', yearStrLength);
   if (yearStrLength === 4 || yearStrLength === 5) {
     movieObjYearMin = parseInt(movieObj.Year.slice(0, 4));
-    return movieObjYearMin >= yearMin;
+    return movieObjYearMin >= filterMinYear && movieObjYearMin <= filterMaxYear;
+    // console.log('movieObjYearMin:', movieObjYearMin);
   }
   if (yearStrLength === 9) {
     movieObjYearMin = parseInt(movieObj.Year.slice(0, 4));
     movieObjYearMax = parseInt(movieObj.Year.slice(5));
+    console.log('movieObjYearMin:', movieObjYearMin);
+    console.log('movieObjYearMax:', movieObjYearMax);
 
-    return movieObjYearMin >= yearMin && movieObjYearMax <= yearMax;
+    return (
+      (movieObjYearMin >= filterMinYear && movieObjYearMin <= filterMaxYear) ||
+      (movieObjYearMax >= filterMinYear && movieObjYearMax <= filterMaxYear)
+    );
   }
 };
+// Function fetching selected movie data
+export async function selectedMovieDataFetch (movieId){
+  const apiUrl = `http://www.omdbapi.com/?i=${movieId}&apikey=81b34f15`
+  const fetchRes = await fetch(apiUrl);
+  return fetchRes.json()
+}
