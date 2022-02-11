@@ -1,8 +1,11 @@
 import { FaSearch } from 'react-icons/fa';
-import YearsFilter from './YearsFilter';
-import TypeFilter from './TypeFilter';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const Search = ({
   searchTerm,
@@ -31,9 +34,11 @@ const Search = ({
           />
         </div>
         <div id='filter'>
+
+          {/*Years Filter*/}
           <div className="years-filter">
             <span>{yearSliderValue[0]}</span>
-            <Box sx={{width: 200}}>
+            <Box sx={{width: 150}}>
               <Slider
                   getAriaLabel={() => 'Years'}
                   value={yearSliderValue}
@@ -50,12 +55,26 @@ const Search = ({
 
           </div>
 
-          <TypeFilter
-              MOVIE_TYPE_TO_FILTER_VALUE={MOVIE_TYPE_TO_FILTER_VALUE}
-              movieTypeIndex={movieTypeIndex}
-              handleMovieTypeChange={handleMovieTypeChange}
-              movieType={movieType}
-          />
+          {/* Type Filter */}
+
+          <FormControl>
+            <FormLabel id="">Type</FormLabel>
+            <RadioGroup row>
+              {MOVIE_TYPE_TO_FILTER_VALUE.map(({title, filter}, index)=>{
+                return (
+                    <FormControlLabel
+                        key={filter}
+                        value={filter}
+                        checked={movieTypeIndex === index}
+                        control={<Radio size='small' />}
+                        onChange={handleMovieTypeChange.bind(null, index)}
+                        label={title}
+                    />
+                )
+              })}
+            </RadioGroup>
+          </FormControl>
+
         </div>
       </div>
   );

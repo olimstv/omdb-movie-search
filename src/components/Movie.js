@@ -1,5 +1,5 @@
 const Movie = ({ movie, handleMovieItemClick }) => {
-  console.log(`movie: ${movie}`);
+  // console.log(`movie: ${movie}`);
   return (
     <div className={'movie-item'} onClick={()=>{handleMovieItemClick(movie.imdbID)}}>
       {movie && (

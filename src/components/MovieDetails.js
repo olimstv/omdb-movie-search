@@ -1,16 +1,19 @@
 import React from 'react';
 
-const MovieDetails = ({selectedMovieData}) => {
-  // const {Title, Year, Rated, Genre} = selectedMovieData;
+const MovieDetails = ({message, selectedMovie}) => {
 
-  return <>
-          {selectedMovieData && (<div>
-        <p>{selectedMovieData.Title}</p>
-        <p>{selectedMovieData.Year}</p>
-        <p>{selectedMovieData.Rated}</p>
-        <p>{selectedMovieData.Genre}</p>
-      </div>)}
-  </>
+  // console.log('MovieDetails msg:', message)
+  return <div id='movie-details'>
+          {!selectedMovie ?
+              (
+                <span className='message'>{message}</span>
+              ) :
+              (
+                  <div className='movie-description'>
+                    <img src={selectedMovie.Poster} alt=""/>
+                  </div>
+              )}
+  </div>
 };
 
 export default MovieDetails;

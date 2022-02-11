@@ -8,7 +8,7 @@ import Showcase from './components/Showcase';
 const CURRENT_YEAR = new Date().getFullYear();
 const MIN_YEAR = 1824;
 const MAX_YEAR = CURRENT_YEAR;
-const DEFAULT_YEAR_RANGE_LENGTH = 10;
+// const DEFAULT_YEAR_RANGE_LENGTH = 10;
 const MIN_SEARCH_TERM_LENGTH = 3;
 const MOVIE_TYPE_TO_FILTER_VALUE = [
   { title: 'Any', filter: '' },
@@ -23,12 +23,12 @@ function App() {
   const movieType = MOVIE_TYPE_TO_FILTER_VALUE[movieTypeIndex];
   const [searchTerm, setSearchTerm] = useState('');
   const [yearSliderValue, setYearSliderValue] = useState([
-    CURRENT_YEAR - DEFAULT_YEAR_RANGE_LENGTH,
+    MIN_YEAR,
     CURRENT_YEAR
   ]);
   const [isPending, setIsPending] = useState(false);
-  const [message, setMessage] = useState();
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [message, setMessage] = useState('Please, make a search');
+  const [selectedMovie, setSelectedMovie] = useState(undefined);
   // ---
   const [movieQueryMeta, setMovieQueryMeta] = useState();
   const [movieQueryResult, setMovieQueryResult] = useState([]);
@@ -42,7 +42,7 @@ function App() {
     fromYear = yearSliderValue[1];
     toYear = yearSliderValue[0];
   }
-  console.log(`From ${fromYear} to ${toYear}.`);
+  // console.log(`From ${fromYear} to ${toYear}.`);
 
 
 
@@ -71,10 +71,10 @@ function App() {
       setMessage(
         `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
       );
-      setMovieQueryResult({});
+      // setMovieQueryResult({});
       return;
     }
-    setMessage();
+    // setMessage();
 
     const newQueryMeta = queryMovies(
       fromYear,
@@ -88,6 +88,7 @@ function App() {
         if (data[0].Response) {
           setMessage(data[0].Error);
         } else {
+          setMessage('Please, select the movie to see the details')
           setMovieQueryResult(data);
         }
       })
@@ -104,16 +105,25 @@ function App() {
   };
 
   const handleMovieItemClick= async (movieId)=>{
-    const data = await selectedMovieDataFetch(movieId)
-    // console.log(data)
-    setSelectedMovie(data)
-    // console.log(`selectedMovie`, selectedMovie)
+    // console.log(`movieId: ${movieId}`)
+
+    if(selectedMovie === undefined || selectedMovie.imdbID !==movieId) {
+      // console.log('selectedMovie.imdbId: ',selectedMovie.imdbID)
+      // console.log('movieId: ',movieId)
+      let data;
+      data = await selectedMovieDataFetch(movieId);
+      // console.log(data)
+      setSelectedMovie(data)
+    } else {
+      return;
+    }
+return;
   }
 
   const enterKeyCheck = key => {
     return key.code === 'Enter';
   };
-
+  // console.log('app msg: ', message)
   return (
     <div>
       <Search
@@ -130,7 +140,7 @@ function App() {
         searchKeyPress={handleSearchEnterKeyPress}
       />
       {/* <p>{message}</p> */}
-      <Showcase movies={movieQueryResult} handleMovieItemClick={handleMovieItemClick} selectedMovieData={selectedMovie} />
+      <Showcase message={message} movies={movieQueryResult} handleMovieItemClick={handleMovieItemClick} selectedMovieData={selectedMovie} />
     </div>
   );
 }

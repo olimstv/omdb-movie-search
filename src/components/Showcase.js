@@ -1,13 +1,12 @@
 import Movies from './Movies';
 import MovieDetails from './MovieDetails';
 
-const Showcase = ({ movies, handleMovieItemClick, selectedMovieData }) => {
-  // console.log('movies Showcase:', movies);
-  // console.log('movies Showcase qty:', movies.length);
+const Showcase = ({ message ,movies, handleMovieItemClick, selectedMovieData }) => {
+    // console.log('Showcase msg:', message)
   return (
     <div id='showcase'>
       {movies && <Movies movies={movies} handleMovieItemClick={handleMovieItemClick}/>}
-      <MovieDetails selectedMovieData={selectedMovieData}/>
+         <MovieDetails selectedMovie={selectedMovieData} message={message}/>
     </div>
   );
 };
