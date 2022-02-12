@@ -10,8 +10,8 @@ const Movie = ({ movie, handleMovieItemClick }) => {
             <>{movie.Poster}</>
           )}
           <div>
-            <h3>{movie.Title}</h3>
-            <p>{movie.Year}</p>
+            <p>{movie.Title}</p>
+            <span>{movie.Year}</span>
           </div>
         </div>
       )}

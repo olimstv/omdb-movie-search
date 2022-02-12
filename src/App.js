@@ -69,9 +69,10 @@ function App() {
     // check the length of searchTerm
     if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
       setMessage(
-        `I'm too lazy to start searching only for ${usableSearchTerm.length} letters (word should be at least ${MIN_SEARCH_TERM_LENGTH} letters long)`
+        `Please, enter not less than 3 characters`
       );
       // setMovieQueryResult({});
+      setSelectedMovie(undefined)
       return;
     }
     // setMessage();
@@ -125,7 +126,7 @@ return;
   };
   // console.log('app msg: ', message)
   return (
-    <div>
+    <div id='app'>
       <Search
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

@@ -11,7 +11,7 @@ const Movies = ({ movies, handleMovieItemClick }) => {
       <div className='results-count'>
         <p>{counterStr}</p>
       </div>
-      {movies.map((movie, i) => (
+        {movies.map((movie) => (
         <Movie movie={movie} handleMovieItemClick={handleMovieItemClick} key={movie.imdbID} />
       ))}
     </div>
