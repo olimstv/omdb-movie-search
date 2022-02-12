@@ -5,7 +5,7 @@ const Movies = ({ movies, handleMovieItemClick }) => {
   const counterStr =
     movies.length < MAX_MOVIES_TO_SHOW
       ? `${movies.length} results`
-      : `${MAX_MOVIES_TO_SHOW}+`;
+      : `${MAX_MOVIES_TO_SHOW}+ results`;
   return (
     <div id='movies-container'>
       <div className='results-count'>

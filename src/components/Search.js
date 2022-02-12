@@ -1,4 +1,4 @@
-import { FaSearch } from 'react-icons/fa';
+// import { FaSearch } from 'react-icons/fa';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Radio from '@mui/material/Radio';
@@ -6,6 +6,27 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import SearchIcon from '@mui/icons-material/Search'
+import {styled} from "@mui/material/styles";
+
+
+
+const StyledSlider = styled(Slider)(({theme})=>({
+  color: '#fff',
+  '& .MuiSlider-thumb': {
+    '&:hover': {
+      boxShadow: '0px 0px 0px 8px rgba(255, 255, 255, 0.16)'
+    }
+  }
+}))
+const StyledRadio = styled(Radio)(({theme})=>({
+  color: '#fff',
+  '& .css-vqmohf-MuiButtonBase-root-MuiRadio-root': {
+    '&:hover': {
+      backgroundColor: 'none'
+    }
+  }
+}))
 
 const Search = ({
   searchTerm,
@@ -21,10 +42,11 @@ const Search = ({
   searchKeyPress
 }) => {
   return (
+
       <div id='search'>
         <div id='search-box'>
           <label htmlFor='search'></label>
-          <FaSearch className='search-icon'/>
+          <SearchIcon fontSize='large'/>
           <input
               type='text'
               placeholder='Search...'
@@ -36,10 +58,14 @@ const Search = ({
         <div id='filter'>
 
           {/*Years Filter*/}
-          <div className="years-filter">
+          <div id="years-filter">
+            {/*<FormControl>*/}
+            <Box sx={{textTransform: 'uppercase'}} id="">Year</Box>
+            <div className='year-slider'>
             <span>{yearSliderValue[0]}</span>
-            <Box sx={{width: 150}}>
-              <Slider
+            <Box sx={{width: 150, margin:'auto 15px'}}>
+              <StyledSlider
+
                   getAriaLabel={() => 'Years'}
                   value={yearSliderValue}
                   onChange={(event, newValue) =>
@@ -52,13 +78,14 @@ const Search = ({
               />
             </Box>
             <span>{yearSliderValue[1]}</span>
-
+              {/*</FormControl>*/}
+            </div>
           </div>
 
           {/* Type Filter */}
-
-          <FormControl>
-            <FormLabel id="">Type</FormLabel>
+          <div id="types-filter">
+          {/*<FormControl>*/}
+            <Box sx={{textTransform: 'uppercase'}} id="">Type</Box>
             <RadioGroup row>
               {MOVIE_TYPE_TO_FILTER_VALUE.map(({title, filter}, index)=>{
                 return (
@@ -66,15 +93,15 @@ const Search = ({
                         key={filter}
                         value={filter}
                         checked={movieTypeIndex === index}
-                        control={<Radio size='small' />}
+                        control={<StyledRadio size='medium' />}
                         onChange={handleMovieTypeChange.bind(null, index)}
                         label={title}
                     />
                 )
               })}
             </RadioGroup>
-          </FormControl>
-
+          {/*</FormControl>*/}
+          </div>
         </div>
       </div>
   );
