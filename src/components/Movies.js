@@ -14,14 +14,20 @@ const Movies = ({ movies, handleMovieItemClick, selectedMovie }) => {
       <div className='results-count'>
         <p>{counterStr}</p>
       </div>
-        {movies.map((movie) => (
-        <Movie
-            // selected={movie.imdbID===selectedMovie.imdbID}
-            movie={movie}
-            handleMovieItemClick={handleMovieItemClick}
-            selectedMovie={selectedMovie}
-            key={movie.imdbID} />
-      ))}
+        {movies.map((movie) => {
+            let selected = false
+            if(selectedMovie!== undefined) {
+                selected = selectedMovie.imdbID === movie.imdbID
+            }
+            return (<Movie
+                    selected={selected}
+                    movie={movie}
+                    handleMovieItemClick={handleMovieItemClick}
+                    selectedMovie={selectedMovie}
+                    key={movie.imdbID} />
+            )})
+
+        }
     </div>
   );
 };

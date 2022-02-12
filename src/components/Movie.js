@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-const Movie = ({ movie, selectedMovie, handleMovieItemClick }) => {
+const Movie = ({ movie, selected, selectedMovie, handleMovieItemClick }) => {
   console.log(`movie selectedMovie: ${selectedMovie}`);
   // console.log(selected)
   // let addedClassName = `${selected}`?' selected':'';
@@ -15,7 +15,7 @@ let addedClassName;
       {movie && (
         <div
             // className={`movie-item${addedClassName}`}
-              className='movie-item'
+            className={selected?'movie-item selected':'movie-item'}
             onClick={(e)=>{
             handleMovieItemClick(movie.imdbID)}} check>
             {movie.Poster !== 'N/A' ? (

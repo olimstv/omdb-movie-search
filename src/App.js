@@ -43,8 +43,6 @@ function App() {
   }
   // console.log(`From ${fromYear} to ${toYear}.`);
 
-
-
   // Event Handlers
   const handleSearchTermChange = e => {
     const newSearchTerm = e.target.value;
@@ -65,13 +63,12 @@ function App() {
     if (!enterKeyCheck(e)) {
       return;
     }
+    setSelectedMovie(undefined);
     // check the length of searchTerm
     if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
-      setMessage(
-        `Please, enter not less than 3 characters`
-      );
+      setMessage(`Please, enter not less than 3 characters`);
       // setMovieQueryResult({});
-      setSelectedMovie(undefined)
+
       return;
     }
     // setMessage();
@@ -87,11 +84,9 @@ function App() {
       .then(data => {
         if (data[0].Response) {
           setMessage(data[0].Error);
-
         } else {
-          setMessage('Please, select the movie to see the details')
+          setMessage('Please, select the movie to see the details');
           setMovieQueryResult(data);
-
         }
       })
       .catch(errorMessage => {
@@ -106,21 +101,21 @@ function App() {
     });
   };
 
-  const handleMovieItemClick= async (movieId)=>{
+  const handleMovieItemClick = async movieId => {
     // console.log(`movieId: ${movieId}`)
 
-    if(selectedMovie === undefined || selectedMovie.imdbID !==movieId) {
+    if (selectedMovie === undefined || selectedMovie.imdbID !== movieId) {
       // console.log('selectedMovie.imdbId: ',selectedMovie.imdbID)
       // console.log('movieId: ',movieId)
       let data;
       data = await selectedMovieDataFetch(movieId);
       // console.log(data)
-      setSelectedMovie(data)
+      setSelectedMovie(data);
     } else {
       return;
     }
-return;
-  }
+    return;
+  };
 
   const enterKeyCheck = key => {
     return key.code === 'Enter';
@@ -143,10 +138,11 @@ return;
       />
       {/* <p>{message}</p> */}
       <Showcase
-          message={message}
-          movies={movieQueryResult}
-          handleMovieItemClick={handleMovieItemClick}
-          selectedMovie={selectedMovie} />
+        message={message}
+        movies={movieQueryResult}
+        handleMovieItemClick={handleMovieItemClick}
+        selectedMovie={selectedMovie}
+      />
     </div>
   );
 }
