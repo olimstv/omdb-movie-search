@@ -2,7 +2,6 @@ const MAX_PAGES = 3;
 export const MAX_MOVIES_TO_SHOW = 5;
 
 export function queryMovies(
-  // searchTerm,
   fromYear,
   toYear,
   movieType,

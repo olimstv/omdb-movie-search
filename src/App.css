@@ -1,10 +1,12 @@
 :root {
   --primary-color: #666;
   --secondary-color: #ffa200;
+  --selected: #dfdfdf;
   --light-gray: #8f8f8f;
   --lighter-gray: #ebebeb;
   --text-color-dark: #333;
 }
+
 
 /* Utilities */
 .tag{
@@ -65,8 +67,12 @@
 }
 
 /* Filter */
-#filter * {
+#types-filter * {
   color: #fff
+}
+/* impudently changing Mui css */
+.css-17r8nsb-MuiButtonBase-root-MuiRadio-root:hover {
+  background-color:rgba(255, 255, 255, 0.03) !important;
 }
 #filter {
   display: flex;
@@ -91,6 +97,9 @@
   align-items: center;
   margin: 4px auto;
 }
+
+
+
 /*Main area*/
 #showcase{
   display: grid;
@@ -120,7 +129,7 @@
   overflow-y: scroll;
    justify-items: stretch;
 }
-.movie {
+.movie-item {
   /*display: grid;*/
   /*grid-template-columns: 1fr 4fr;*/
   display: flex;
@@ -132,17 +141,17 @@
   color: var(--text-color-dark);
   border-bottom: 1px solid var(--light-gray);
 }
-.movie > img {
+.movie-item > img {
   display: inline;
   height: 60px;
   width: 60px;
   /* border: 1px solid var(--primary-color); */
 }
-.movie > div {
+.movie-item > div {
   margin-left: 20px;
 
 }
-.movie > div > span {
+.movie-item > div > span {
   color: var(--light-gray);
   font-weight: 100;
 }
@@ -159,6 +168,7 @@ width: 100%;
   padding: 2.5rem 0 2.5rem 2.5rem;
 }
 #selected-movie > .movie-title {
+  width: 100%;
 display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: repeat(3, 1fr);
@@ -170,6 +180,9 @@ display: grid;
   padding-bottom: 30px;
   padding-right: 2rem;
   border-bottom: 1px solid var(--light-gray);
+}
+.selected {
+  background: var(--selected);
 }
 .movie-title img {
   grid-area: image;

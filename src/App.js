@@ -8,7 +8,6 @@ import Showcase from './components/Showcase';
 const CURRENT_YEAR = new Date().getFullYear();
 const MIN_YEAR = 1824;
 const MAX_YEAR = CURRENT_YEAR;
-// const DEFAULT_YEAR_RANGE_LENGTH = 10;
 const MIN_SEARCH_TERM_LENGTH = 3;
 const MOVIE_TYPE_TO_FILTER_VALUE = [
   { title: 'Any', filter: '' },
@@ -26,7 +25,7 @@ function App() {
     MIN_YEAR,
     CURRENT_YEAR
   ]);
-  const [isPending, setIsPending] = useState(false);
+
   const [message, setMessage] = useState('Please, make a search');
   const [selectedMovie, setSelectedMovie] = useState(undefined);
   // ---
@@ -88,9 +87,11 @@ function App() {
       .then(data => {
         if (data[0].Response) {
           setMessage(data[0].Error);
+
         } else {
           setMessage('Please, select the movie to see the details')
           setMovieQueryResult(data);
+
         }
       })
       .catch(errorMessage => {
@@ -141,7 +142,11 @@ return;
         searchKeyPress={handleSearchEnterKeyPress}
       />
       {/* <p>{message}</p> */}
-      <Showcase message={message} movies={movieQueryResult} handleMovieItemClick={handleMovieItemClick} selectedMovieData={selectedMovie} />
+      <Showcase
+          message={message}
+          movies={movieQueryResult}
+          handleMovieItemClick={handleMovieItemClick}
+          selectedMovie={selectedMovie} />
     </div>
   );
 }

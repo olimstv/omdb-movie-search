@@ -1,21 +1,36 @@
-const Movie = ({ movie, handleMovieItemClick }) => {
-  // console.log(`movie: ${movie}`);
+import {useState} from "react";
+
+const Movie = ({ movie, selectedMovie, handleMovieItemClick }) => {
+  console.log(`movie selectedMovie: ${selectedMovie}`);
+  // console.log(selected)
+  // let addedClassName = `${selected}`?' selected':'';
+let addedClassName;
+  // if(selected){
+  //   addedClassName = ' selected'
+  // } else {
+  //   addedClassName = ''
+  // }
   return (
-    <div className={'movie-item'} onClick={()=>{handleMovieItemClick(movie.imdbID)}}>
+    <>
       {movie && (
-        <div className='movie'>
-          {movie.Poster !== 'N/A' ? (
-            <img src={movie.Poster} alt={movie.Title} />
-          ) : (
-            <>{movie.Poster}</>
-          )}
+        <div
+            // className={`movie-item${addedClassName}`}
+              className='movie-item'
+            onClick={(e)=>{
+            handleMovieItemClick(movie.imdbID)}} check>
+            {movie.Poster !== 'N/A' ? (
+              <img src={movie.Poster} alt={movie.Title} />
+            ) : (
+              <>{movie.Poster}</>
+            )}
           <div>
+          
             <p>{movie.Title}</p>
             <span>{movie.Year}</span>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

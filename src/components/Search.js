@@ -1,26 +1,29 @@
-// import { FaSearch } from 'react-icons/fa';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import SearchIcon from '@mui/icons-material/Search'
 import {styled} from "@mui/material/styles";
 
 
 
 const StyledSlider = styled(Slider)(({theme})=>({
-  color: '#fff',
+  color: '#dfdfdf',
   '& .MuiSlider-thumb': {
     '&:hover': {
-      boxShadow: '0px 0px 0px 8px rgba(255, 255, 255, 0.16)'
+      boxShadow: '0px 0px 0px 8px rgba(253, 253, 253, 0.03)'
     }
   }
 }))
 const StyledRadio = styled(Radio)(({theme})=>({
   color: '#fff',
+  '& .PrivateSwitchBase-input:hover':{
+    color: '#fff',
+  },
+  '& .css-1m9pwf3:hover':{
+    color: '#fff',
+  },
   '& .css-vqmohf-MuiButtonBase-root-MuiRadio-root': {
     '&:hover': {
       backgroundColor: 'none'

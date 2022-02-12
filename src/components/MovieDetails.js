@@ -2,7 +2,7 @@ import { MdBookmarkBorder } from "react-icons/md";
 
 const MovieDetails = ({message, selectedMovie}) => {
 
-  // console.log('MovieDetails msg:', message)
+  console.log('MovieDetails selectedMovie:', selectedMovie)
   return <div id='selected-movie'>
           {!selectedMovie ?
               (
@@ -31,7 +31,7 @@ const MovieDetails = ({message, selectedMovie}) => {
                   </div>
                   <div className='movie-ratings'>
                     {selectedMovie.Ratings.map((rating, i)=>{
-                      return (<div className="rating-box">
+                      return (<div className="rating-box" key={i}>
                         <h4>{rating.Value}</h4>
                         <span>{rating.Source}</span>
                       </div>)
