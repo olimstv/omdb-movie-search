@@ -1,3 +1,5 @@
+// temporary workaround to reduce the amount of API calls while development
+// (as they are limited to 1000 per day)
 const MAX_PAGES = 3;
 export const MAX_MOVIES_TO_SHOW = 5;
 
@@ -98,3 +100,7 @@ export async function selectedMovieDataFetch (movieId){
   const fetchRes = await fetch(apiUrl);
   return fetchRes.json()
 }
+
+export function enterKeyCheck (key) {
+  return key.code === 'Enter';
+};

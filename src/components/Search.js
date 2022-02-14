@@ -31,21 +31,19 @@ const StyledRadio = styled(Radio)(({theme})=>({
   }
 }))
 
-const Search = ({
-  searchTerm,
-  handleSearchTermChange,
-  MIN_YEAR,
-  MAX_YEAR,
-  yearSliderValue,
-  handleYearSliderValueChange,
-  MOVIE_TYPE_TO_FILTER_VALUE,
-  movieTypeIndex,
-  movieType,
-  handleMovieTypeChange,
-  searchKeyPress
+const Search = ({searchTerm,
+                handleSearchTermChange,
+                MIN_YEAR,
+                MAX_YEAR,
+                yearSliderValue,
+                handleYearSliderValueChange,
+                MOVIE_TYPE_TO_FILTER_VALUE,
+                movieTypeIndex,
+                handleMovieTypeChange,
+                searchKeyPress,
 }) => {
   return (
-
+      //input box
       <div id='search'>
         <div id='search-box'>
           <label htmlFor='search'></label>
@@ -58,11 +56,11 @@ const Search = ({
               onKeyDown={e => searchKeyPress(e)}
           />
         </div>
-        <div id='filter'>
 
+        {/*Filters*/}
+        <div id='filter'>
           {/*Years Filter*/}
           <div id="years-filter">
-            {/*<FormControl>*/}
             <Box sx={{textTransform: 'uppercase'}} id="">Year</Box>
             <div className='year-slider'>
             <span>{yearSliderValue[0]}</span>
@@ -81,13 +79,11 @@ const Search = ({
               />
             </Box>
             <span>{yearSliderValue[1]}</span>
-              {/*</FormControl>*/}
             </div>
           </div>
 
           {/* Type Filter */}
           <div id="types-filter">
-          {/*<FormControl>*/}
             <Box sx={{textTransform: 'uppercase'}} id="">Type</Box>
             <RadioGroup row>
               {MOVIE_TYPE_TO_FILTER_VALUE.map(({title, filter}, index)=>{
@@ -103,8 +99,10 @@ const Search = ({
                 )
               })}
             </RadioGroup>
-          {/*</FormControl>*/}
+
           </div>
+        {/*  Watchlist */}
+
         </div>
       </div>
   );

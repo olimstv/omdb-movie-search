@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Movie Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is using an [OMDb API](https://www.omdbapi.com/) (a RESTful web service to obtain movie information).
 
 ## Available Scripts
 
