@@ -11,20 +11,18 @@ const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies 
 
 const currentUrl = useLocation().pathname;
 
-    const backToHomeBtn = (<button className='bookmarked-movies'>
-
+    const backToHomeBtn = (
+        <>
         <MdOutlineHome className='btn-icon' size='1.5rem' color='#ffa200'/>
         <Link to='/'>
             Back to Home
-        </Link>
-    </button>)
-    const watchListBtn = (
-        <button className='bookmarked-movies'>
+        </Link></>)
+    const watchListBtn = (<>
             <MdBookmarkBorder className='btn-icon' size='1.5rem' color='#ffa200'/>
-            <Link to='/watchlist'>
+        <Link to='/watchlist'>
+
                 Watchlist
-            </Link>
-        </button>)
+        </Link></>)
 
   return (
     <div id='movies-container'>

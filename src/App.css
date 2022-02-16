@@ -96,11 +96,12 @@ body {
   outline: none;
   display: flex;
   justify-content: flex-start;
+  text-align: left;
   align-items: center;
-  padding: 0 40px;
+  padding-left: 40px;
   width: 100%;
   height: 50px;
-  border-bottom: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--selected);
   cursor: pointer;
 }
 .bookmarked-movies:hover {
@@ -109,7 +110,7 @@ body {
 }
 
 .bookmarked-movies a {
-  /*color: var(--secondary-color);*/
+width: 100%;
   color: var(--primary-color);
   text-decoration: none;
   text-transform: uppercase;
@@ -309,7 +310,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-font-size: 3rem;
+  font-size: 3rem;
   background: var(--primary-color);
   height: 120px;
   width: 100%;
