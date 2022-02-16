@@ -1,14 +1,9 @@
-import { useState } from 'react';
-
-const Movie = ({ movie, selected, selectedMovie, handleMovieItemClick }) => {
-
-  let addedClassName;
+const Movie = ({ movie, selected, handleMovieItemClick }) => {
 
   return (
     <>
       {movie && (
         <div
-          // className={`movie-item${addedClassName}`}
           className={selected ? 'movie-item selected' : 'movie-item'}
           onClick={e => {
             handleMovieItemClick(movie.imdbID);

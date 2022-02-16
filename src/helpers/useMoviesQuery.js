@@ -1,6 +1,5 @@
 // temporary workaround to reduce the amount of API calls while development
 // (as they are limited to 1000 per day)
-const MAX_PAGES = 3;
 export const MAX_MOVIES_TO_SHOW = 5;
 
 export function queryMovies(
@@ -13,9 +12,7 @@ export function queryMovies(
 
   const promise = new Promise((resolve, reject) => {
     let numPages;
-    // let usableSearchTerm = searchTerm.trim();
     let movies = [];
-    // let currPage = 1;
 
     function fetchNextPage(currPage) {
       if (cancelFetch) {
@@ -45,7 +42,6 @@ export function queryMovies(
             movies.push(item);
           }
         });
-        // currPage++;
         fetchNextPage(currPage + 1);
       });
     }
@@ -85,8 +81,6 @@ const yearsFilter = (movieObj, filterMinYear, filterMaxYear) => {
   if (yearStrLength === 9) {
     movieObjYearMin = parseInt(movieObj.Year.slice(0, 4));
     movieObjYearMax = parseInt(movieObj.Year.slice(5));
-    console.log('movieObjYearMin:', movieObjYearMin);
-    console.log('movieObjYearMax:', movieObjYearMax);
 
     return (
       (movieObjYearMin >= filterMinYear && movieObjYearMin <= filterMaxYear) ||

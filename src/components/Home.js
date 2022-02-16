@@ -5,17 +5,13 @@ import Search from '../components/Search';
 import Showcase from '../components/Showcase';
 
 // Constants
-const CURRENT_YEAR = new Date().getFullYear();
-const MIN_YEAR = 1892;
-const MAX_YEAR = CURRENT_YEAR;
-const MIN_SEARCH_TERM_LENGTH = 3;
-const MOVIE_TYPE_TO_FILTER_VALUE = [
-    { title: 'Any', filter: '' },
-    { title: 'Movies', filter: 'movie' },
-    { title: 'Series', filter: 'series' },
-    { title: 'Episodes', filter: 'episode' }
-];
-export const LOCAL_STORAGE_KEY = 'homeState';
+import {
+    CURRENT_YEAR,
+    MIN_YEAR,
+    MAX_YEAR,
+    MIN_SEARCH_TERM_LENGTH,
+    LOCAL_STORAGE_KEY,
+    MOVIE_TYPE_TO_FILTER_VALUE } from "../constants";
 
 
 function Home() {
@@ -87,9 +83,7 @@ function Home() {
         setSelectedMovie(undefined);
         // check the length of searchTerm
         if (usableSearchTerm.length < MIN_SEARCH_TERM_LENGTH) {
-            //
             setMessage(`Please, enter not less than 3 characters`);
-
             return;
         }
 

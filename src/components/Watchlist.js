@@ -2,7 +2,7 @@ import Movies, {PAGE_MODE_WATCHLIST} from './Movies';
 import MovieDetails from './MovieDetails';
 import { MdBookmarkBorder } from 'react-icons/md';
 import {useState} from "react";
-import {LOCAL_STORAGE_KEY} from "./Home";
+import {LOCAL_STORAGE_KEY} from "../constants";
 
 
 const Watchlist = () => {
@@ -12,7 +12,7 @@ const Watchlist = () => {
         // Parse stored json or if none return initialValue
         return item ? JSON.parse(item) : null;
     })
-    const [message, setMessage] = useState('Please, make a search');
+    const [message, setMessage] = useState('Please, select a movie');
     const [bookmarkedMovies, setBookmarkedMovies] = useState(()=>{
         return initialLocalStorage?.bookmarkedMovies ?? [];
     });
@@ -29,10 +29,7 @@ const Watchlist = () => {
     const [selectedMovie, setSelectedMovie] = useState();
 
     const handleMovieItemClick = (movieId)=>{
-        console.log("movieId", movieId)
         let movieToSelect = bookmarkedMovies.find(movie=>movie.imdbID === movieId)
-        console.log(movieToSelect)
-        console.log(selectedMovie)
        setSelectedMovie(movieToSelect)
 
     }
@@ -53,7 +50,6 @@ const Watchlist = () => {
         // 2) pass the new list of bookmarked movies to the state
         setBookmarkedMovies(newBookmarkedMoviesArray);
         saveStatesToLocalStorage({bookmarkedMovies: newBookmarkedMoviesArray})
-        // }
         return;
     };
 
@@ -80,9 +76,7 @@ const Watchlist = () => {
                 handleWatchlistBtnClick={handleWatchlistBtnClick}
                 bookmarkedMovies={bookmarkedMovies}
             />
-
         </div>
-
     );
 };
 

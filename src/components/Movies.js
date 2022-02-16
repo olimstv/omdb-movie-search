@@ -1,5 +1,5 @@
 import Movie from './Movie.js';
-import { Link, useLocation} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { MAX_MOVIES_TO_SHOW } from '../helpers/useMoviesQuery';
 import { MdBookmarkBorder } from 'react-icons/md';
 import { MdOutlineHome } from 'react-icons/md';
@@ -8,11 +8,15 @@ export const PAGE_MODE_HOME = 'home';
 export const PAGE_MODE_WATCHLIST = 'watchlist';
 
 const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies, pageMode }) => {
-  const counterStr =
+
+    const counterStr =
     movies.length < MAX_MOVIES_TO_SHOW
       ? `${movies.length} results`
       : `${MAX_MOVIES_TO_SHOW}+ results`;
-
+//    ------- w/o restrictions (MAX_MOVIES_TO_SHOW)
+// `${movies.length} ${movies.length === 1
+//     ?`result`
+//     :`results`}`
     const showNavigationBtn = pageMode === PAGE_MODE_WATCHLIST || bookmarkedMovies.length!==0;
     let btnDOM;
     switch (pageMode) {
@@ -46,8 +50,6 @@ const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies,
             </button>
         }
 
-
-
       <div className='results-count'>
         <p>{counterStr}</p>
       </div>
@@ -63,7 +65,6 @@ const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies,
                     selectedMovie={selectedMovie}
                     key={movie.imdbID} />
             )})
-
         }
     </div>
 
