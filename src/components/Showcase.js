@@ -9,9 +9,6 @@ const Showcase = ({
   handleWatchlistBtnClick,
     bookmarkedMovies
 }) => {
-  // console.log(`showcase selectedMovie ${selectedMovie}`);
-  // const selectedMovieID = selectedMovieData.imdbID;
-  // console.log('Showcase movies:', movies.length===true)
   return (
     <div id='showcase'>
       {movies && (

@@ -17,7 +17,6 @@ const MovieDetails = ({ message, selectedMovie, handleWatchlistBtnClick, bookmar
             <img src={selectedMovie.Poster} alt='' />
             <div className='watchlist-btn'>
               <button
-                  // isBookmarked = {isBookmarked}
                 className='btn-outline'
                 onClick={e => handleWatchlistBtnClick(e)}
               >

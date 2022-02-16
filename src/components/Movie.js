@@ -1,15 +1,9 @@
 import { useState } from 'react';
 
 const Movie = ({ movie, selected, selectedMovie, handleMovieItemClick }) => {
-  // console.log(`movie selectedMovie: ${selectedMovie}`);
-  // console.log(selected)
-  // let addedClassName = `${selected}`?' selected':'';
+
   let addedClassName;
-  // if(selected){
-  //   addedClassName = ' selected'
-  // } else {
-  //   addedClassName = ''
-  // }
+
   return (
     <>
       {movie && (

@@ -1,23 +1,41 @@
 import Movie from './Movie.js';
+import { Link, useLocation} from 'react-router-dom'
 import { MAX_MOVIES_TO_SHOW } from '../helpers/useMoviesQuery';
 import { MdBookmarkBorder } from 'react-icons/md';
+import { MdOutlineHome } from 'react-icons/md';
 const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies }) => {
   const counterStr =
     movies.length < MAX_MOVIES_TO_SHOW
       ? `${movies.length} results`
       : `${MAX_MOVIES_TO_SHOW}+ results`;
 
+const currentUrl = useLocation().pathname;
 
+    const backToHomeBtn = (<button className='bookmarked-movies'>
+
+        <MdOutlineHome className='btn-icon' size='1.5rem' color='#ffa200'/>
+        <Link to='/'>
+            Back to Home
+        </Link>
+    </button>)
+    const watchListBtn = (
+        <button className='bookmarked-movies'>
+            <MdBookmarkBorder className='btn-icon' size='1.5rem' color='#ffa200'/>
+            <Link to='/watchlist'>
+                Watchlist
+            </Link>
+        </button>)
 
   return (
     <div id='movies-container'>
-
         {bookmarkedMovies.length!==0 &&
-            <div className='bookmarked-movies'>
-                    <MdBookmarkBorder size='1.5rem' color='#ffa200' />
-                <a href={'#'}>
-                    Watchlist</a>
-            </div>}
+            <button className='bookmarked-movies'>
+                {currentUrl==='/'
+                    ? watchListBtn
+                    : backToHomeBtn}
+            </button>
+    }
+
 
       <div className='results-count'>
         <p>{counterStr}</p>
@@ -37,6 +55,7 @@ const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies 
 
         }
     </div>
+
   );
 };
 

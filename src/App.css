@@ -90,22 +90,33 @@ body {
   height: 100vh;
 }
 .bookmarked-movies {
+  font-size: 1rem;
+  background: none;
+  border:none;
+  outline: none;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   padding: 0 40px;
   width: 100%;
   height: 50px;
   border-bottom: 1px solid var(--light-gray);
+  cursor: pointer;
 }
 .bookmarked-movies:hover {
   background: var(--selected);
+
 }
+
 .bookmarked-movies a {
-  color: var(--secondary-color);
+  /*color: var(--secondary-color);*/
+  color: var(--primary-color);
   text-decoration: none;
   text-transform: uppercase;
-  cursor: pointer;
+
+}
+.bookmarked-movies > a:hover {
+
 }
 /* movies list */
 .results-count{
@@ -208,7 +219,7 @@ body {
   font-size: 1.2rem;
 }
 .btn-outline:hover {
-  background-color: var(--light-gray);
+  background-color: var(--selected);
 }
 .btn-outline + :hover {
   color: var(--secondary-color);
@@ -283,4 +294,27 @@ body {
 .rating-box > span {
   font-size: 1rem;
   color: var(--light-gray);
+}
+#watchlist {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+  "navbar navbar "
+  "list details "
+  "list details "
+;
+}
+.navbar {
+  grid-area: navbar;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+font-size: 3rem;
+  background: var(--primary-color);
+  height: 120px;
+  width: 100%;
+  color: #fff;
+}
+.btn-icon {
+  margin:0 0.5rem
 }
