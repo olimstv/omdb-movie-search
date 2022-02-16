@@ -16,6 +16,8 @@ const StyledSlider = styled(Slider)(({theme})=>({
     }
   }
 }))
+// css changed in a bit of 'hacky'
+// way didn't have much time to fully explore Material Ui design system
 const StyledRadio = styled(Radio)(({theme})=>({
   color: '#fff',
   '& .PrivateSwitchBase-input:hover':{
@@ -101,8 +103,6 @@ const Search = ({searchTerm,
             </RadioGroup>
 
           </div>
-        {/*  Watchlist */}
-
         </div>
       </div>
   );

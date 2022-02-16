@@ -17,7 +17,6 @@ const Watchlist = () => {
         return initialLocalStorage?.bookmarkedMovies ?? [];
     });
     const saveStatesToLocalStorage = (override = {})=>{
-
         // Get from local storage by key
         let existingValue = window.localStorage.getItem(LOCAL_STORAGE_KEY);
         // Parse stored json or if none return initialValue
@@ -40,14 +39,14 @@ const Watchlist = () => {
         // is this movie already in the list?
         const isAlreadyBookmarked = bookmarkedMovies.some(movie=> movie.imdbID === movieToBookmark.imdbID)
         if(isAlreadyBookmarked) {
-            //true? => 1) take out it from the list
+            //true? => take out it from the list
             newBookmarkedMoviesArray=bookmarkedMovies.filter(movie=>movie.imdbID !== movieToBookmark.imdbID);
 
         } else {
             //false? => update the state adding selected movie
             newBookmarkedMoviesArray = [...bookmarkedMovies, movieToBookmark];
         }
-        // 2) pass the new list of bookmarked movies to the state
+        // pass the new list of bookmarked movies to the state
         setBookmarkedMovies(newBookmarkedMoviesArray);
         saveStatesToLocalStorage({bookmarkedMovies: newBookmarkedMoviesArray})
         return;

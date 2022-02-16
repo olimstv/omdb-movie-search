@@ -15,7 +15,7 @@ import {
 
 
 function Home() {
-    // States
+    // States:
     const [initialLocalStorage] = useState(()=>{
         // Get from local storage by key
         const item = window.localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -52,8 +52,6 @@ function Home() {
     const [bookmarkedMovies, setBookmarkedMovies] = useState(()=>{
         return initialLocalStorage?.bookmarkedMovies ?? [];
     });
-
-
 
     const saveStatesToLocalStorage = (override = {})=>{
         const newValue = {movieQueryResult,movieTypeIndex,searchTerm,yearSliderValue, selectedMovie, bookmarkedMovies, ...override }
@@ -179,7 +177,7 @@ function Home() {
                     handleYearSliderValueChange={handleYearSliderValueChange}
                     MOVIE_TYPE_TO_FILTER_VALUE={MOVIE_TYPE_TO_FILTER_VALUE}
                     movieTypeIndex={movieTypeIndex}
-                    movieType={movieType}
+                    // movieType={movieType}
                     handleMovieTypeChange={handleMovieTypeChange}
                     searchKeyPress={handleSearchEnterKeyPress}
 
