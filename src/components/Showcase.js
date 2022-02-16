@@ -1,5 +1,6 @@
-import Movies from './Movies';
+import Movies, {PAGE_MODE_HOME} from './Movies';
 import MovieDetails from './MovieDetails';
+
 
 const Showcase = ({
   message,
@@ -17,6 +18,7 @@ const Showcase = ({
           selectedMovie={selectedMovie}
           handleMovieItemClick={handleMovieItemClick}
           bookmarkedMovies = {bookmarkedMovies}
+          pageMode={PAGE_MODE_HOME}
         />
       )}
       <MovieDetails

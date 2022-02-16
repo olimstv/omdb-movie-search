@@ -1,4 +1,4 @@
-import Movies from './Movies';
+import Movies, {PAGE_MODE_WATCHLIST} from './Movies';
 import MovieDetails from './MovieDetails';
 import { MdBookmarkBorder } from 'react-icons/md';
 import {useState} from "react";
@@ -71,6 +71,7 @@ const Watchlist = () => {
                     handleMovieItemClick={handleMovieItemClick}
                     selectedMovie={selectedMovie}
                     bookmarkedMovies={bookmarkedMovies}
+                    pageMode={PAGE_MODE_WATCHLIST}
                 />
             )}
             <MovieDetails

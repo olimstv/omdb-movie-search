@@ -3,36 +3,49 @@ import { Link, useLocation} from 'react-router-dom'
 import { MAX_MOVIES_TO_SHOW } from '../helpers/useMoviesQuery';
 import { MdBookmarkBorder } from 'react-icons/md';
 import { MdOutlineHome } from 'react-icons/md';
-const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies }) => {
+
+export const PAGE_MODE_HOME = 'home';
+export const PAGE_MODE_WATCHLIST = 'watchlist';
+
+const Movies = ({ movies, handleMovieItemClick, selectedMovie, bookmarkedMovies, pageMode }) => {
   const counterStr =
     movies.length < MAX_MOVIES_TO_SHOW
       ? `${movies.length} results`
       : `${MAX_MOVIES_TO_SHOW}+ results`;
 
-const currentUrl = useLocation().pathname;
+    const showNavigationBtn = pageMode === PAGE_MODE_WATCHLIST || bookmarkedMovies.length!==0;
+    let btnDOM;
+    switch (pageMode) {
+        case PAGE_MODE_WATCHLIST:
+            btnDOM = <>
+                <MdOutlineHome className='btn-icon' size='1.5rem' color='#ffa200'/>
+                <Link to='/'>
+                    Back to Home
+                </Link>
+            </>;
+            break;
+        case PAGE_MODE_HOME:
+            btnDOM = <>
+                <MdBookmarkBorder className='btn-icon' size='1.5rem' color='#ffa200'/>
+                <Link to='/watchlist'>
 
-    const backToHomeBtn = (
-        <>
-        <MdOutlineHome className='btn-icon' size='1.5rem' color='#ffa200'/>
-        <Link to='/'>
-            Back to Home
-        </Link></>)
-    const watchListBtn = (<>
-            <MdBookmarkBorder className='btn-icon' size='1.5rem' color='#ffa200'/>
-        <Link to='/watchlist'>
-
-                Watchlist
-        </Link></>)
+                    Watchlist
+                </Link>
+            </>;
+            break;
+        default:
+            throw new Error(`Unknown page mode = "${pageMode}".`);
+    }
 
   return (
     <div id='movies-container'>
-        {bookmarkedMovies.length!==0 &&
+        {
+            showNavigationBtn &&
             <button className='bookmarked-movies'>
-                {currentUrl==='/'
-                    ? watchListBtn
-                    : backToHomeBtn}
+                {btnDOM}
             </button>
-    }
+        }
+
 
 
       <div className='results-count'>
