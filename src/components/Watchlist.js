@@ -13,25 +13,27 @@ const Watchlist = () => {
         return item ? JSON.parse(item) : null;
     })
     const [message, setMessage] = useState('Please, make a search');
-    const [watchlistMovies, setWatchlistMovies] = useState(()=>{
+    const [bookmarkedMovies, setBookmarkedMovies] = useState(()=>{
         return initialLocalStorage?.bookmarkedMovies ?? [];
     });
     const saveStatesToLocalStorage = (override = {})=>{
-        const newValue = { selectedMovie, watchlistMovies, ...override }
+
+        // Get from local storage by key
+        let existingValue = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+        // Parse stored json or if none return initialValue
+        existingValue = existingValue ? JSON.parse(existingValue) : {};
+
+        const newValue = { ...existingValue, watchlistMovies: bookmarkedMovies, ...override }
         window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newValue))
     }
-    const [selectedMovie, setSelectedMovie] = useState(()=>{
-        return initialLocalStorage?.selectedMovie ?? undefined;
-
-    });
+    const [selectedMovie, setSelectedMovie] = useState();
 
     const handleMovieItemClick = (movieId)=>{
-        let movieToSelect = watchlistMovies.filter(movie=>movie.imdbID === movieId)
+        console.log("movieId", movieId)
+        let movieToSelect = bookmarkedMovies.find(movie=>movie.imdbID === movieId)
         console.log(movieToSelect)
         console.log(selectedMovie)
-        if(selectedMovie.imdbID !== movieToSelect[0].imdbID) {
-            setSelectedMovie(movieToSelect[0])
-        }
+       setSelectedMovie(movieToSelect)
 
     }
 
@@ -39,18 +41,18 @@ const Watchlist = () => {
         const movieToBookmark = selectedMovie;
         let newBookmarkedMoviesArray = []
         // is this movie already in the list?
-        const isAlreadyBookmarked = watchlistMovies.some(movie=> movie.imdbID === movieToBookmark.imdbID)
+        const isAlreadyBookmarked = bookmarkedMovies.some(movie=> movie.imdbID === movieToBookmark.imdbID)
         if(isAlreadyBookmarked) {
             //true? => 1) take out it from the list
-            newBookmarkedMoviesArray=watchlistMovies.filter(movie=>movie.imdbID !== movieToBookmark.imdbID);
+            newBookmarkedMoviesArray=bookmarkedMovies.filter(movie=>movie.imdbID !== movieToBookmark.imdbID);
 
         } else {
             //false? => update the state adding selected movie
-            newBookmarkedMoviesArray = [...watchlistMovies, movieToBookmark];
+            newBookmarkedMoviesArray = [...bookmarkedMovies, movieToBookmark];
         }
         // 2) pass the new list of bookmarked movies to the state
-        setWatchlistMovies(newBookmarkedMoviesArray);
-        saveStatesToLocalStorage({watchlistMovies: newBookmarkedMoviesArray})
+        setBookmarkedMovies(newBookmarkedMoviesArray);
+        saveStatesToLocalStorage({bookmarkedMovies: newBookmarkedMoviesArray})
         // }
         return;
     };
@@ -63,19 +65,19 @@ const Watchlist = () => {
                 <MdBookmarkBorder color='#ffa200'/> Watchlist
             </div>
 
-            {watchlistMovies && (
+            {bookmarkedMovies && (
                 <Movies
-                    movies={watchlistMovies}
+                    movies={bookmarkedMovies}
                     handleMovieItemClick={handleMovieItemClick}
                     selectedMovie={selectedMovie}
-                    bookmarkedMovies={watchlistMovies}
+                    bookmarkedMovies={bookmarkedMovies}
                 />
             )}
             <MovieDetails
                 message={message}
                 selectedMovie={selectedMovie}
                 handleWatchlistBtnClick={handleWatchlistBtnClick}
-                bookmarkedMovies={watchlistMovies}
+                bookmarkedMovies={bookmarkedMovies}
             />
 
         </div>
